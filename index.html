@@ -11,38 +11,60 @@
     
     * {
       font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
     }
     
     .gradient-text {
-      background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 50%, #cccccc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .gradient-accent {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     
     .glass-effect {
-      background: rgba(20, 20, 20, 0.8);
-      backdrop-filter: blur(20px);
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(25px);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .glass-subtle {
+      background: rgba(30, 30, 30, 0.6);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .floating {
-      animation: floating 3s ease-in-out infinite;
+      animation: floating 4s ease-in-out infinite;
     }
     
     @keyframes floating {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-10px) rotate(1deg); }
+      50% { transform: translateY(-15px) rotate(0deg); }
+      75% { transform: translateY(-10px) rotate(-1deg); }
     }
     
     .glow {
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+    }
+    
+    .glow-accent {
+      box-shadow: 0 0 40px rgba(124, 58, 237, 0.3);
     }
     
     .page {
       display: none;
       opacity: 0;
-      transition: opacity 0.5s ease-in-out;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 100vh;
     }
     
     .page.active {
@@ -56,7 +78,7 @@
       white-space: nowrap;
       margin: 0 auto;
       letter-spacing: .15em;
-      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+      animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
     }
     
     @keyframes typing {
@@ -70,7 +92,11 @@
     }
     
     .parallax-bg {
-      background: radial-gradient(circle at 20% 80%, #000000 0%, #111111 40%, #000000 100%);
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 50%),
+        linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
       position: fixed;
       top: 0;
       left: 0;
@@ -90,18 +116,18 @@
     }
     
     .hover-scale {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .hover-scale:hover {
-      transform: scale(1.05);
-      box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+      transform: scale(1.05) translateY(-10px);
+      box-shadow: 0 25px 50px rgba(255, 255, 255, 0.1);
     }
     
     .fade-in {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .fade-in.visible {
@@ -109,13 +135,122 @@
       transform: translateY(0);
     }
     
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .slide-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .slide-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
     .pulse-glow {
-      animation: pulseGlow 2s infinite;
+      animation: pulseGlow 3s infinite ease-in-out;
     }
     
     @keyframes pulseGlow {
       0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
-      50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.3); }
+      50% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.3); }
+    }
+    
+    .team-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .team-card:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+    }
+    
+    .text-shadow {
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    @media (max-width: 768px) {
+      .typewriter {
+        font-size: 1.25rem;
+      }
+      
+      .text-6xl {
+        font-size: 3rem;
+      }
+      
+      .text-8xl {
+        font-size: 4rem;
+      }
+    }
+    
+    .loading-dots {
+      display: inline-block;
+    }
+    
+    .loading-dots::after {
+      content: '';
+      animation: loadingDots 2s infinite;
+    }
+    
+    @keyframes loadingDots {
+      0%, 20% { content: ''; }
+      40% { content: '.'; }
+      60% { content: '..'; }
+      80%, 100% { content: '...'; }
+    }
+    
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      margin: 4rem 0;
     }
   </style>
 </head>
@@ -132,11 +267,26 @@
           NextGenAI
         </div>
         <div class="hidden md:flex space-x-8">
-          <a href="#" onclick="showPage('home')" class="nav-link text-gray-300 hover:text-white transition-colors duration-300">Home</a>
-          <a href="#" onclick="showPage('about')" class="nav-link text-gray-300 hover:text-white transition-colors duration-300">About</a>
-          <a href="#" onclick="showPage('team')" class="nav-link text-gray-300 hover:text-white transition-colors duration-300">Team</a>
-          <a href="#" onclick="showPage('events')" class="nav-link text-gray-300 hover:text-white transition-colors duration-300">Events</a>
-          <a href="#" onclick="showPage('contact')" class="nav-link text-gray-300 hover:text-white transition-colors duration-300">Join</a>
+          <a href="#" onclick="showPage('home')" class="nav-link text-gray-300 hover:text-white transition-all duration-300 relative">
+            <span>Home</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"></div>
+          </a>
+          <a href="#" onclick="showPage('about')" class="nav-link text-gray-300 hover:text-white transition-all duration-300 relative">
+            <span>About</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"></div>
+          </a>
+          <a href="#" onclick="showPage('team')" class="nav-link text-gray-300 hover:text-white transition-all duration-300 relative">
+            <span>Team</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"></div>
+          </a>
+          <a href="#" onclick="showPage('events')" class="nav-link text-gray-300 hover:text-white transition-all duration-300 relative">
+            <span>Events</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"></div>
+          </a>
+          <a href="#" onclick="showPage('contact')" class="nav-link text-gray-300 hover:text-white transition-all duration-300 relative">
+            <span>Join</span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"></div>
+          </a>
         </div>
         <div class="md:hidden">
           <button id="mobile-menu-btn" class="text-white focus:outline-none hover-scale">
@@ -152,49 +302,117 @@
   <!-- Home Page -->
   <div id="home" class="page active">
     <!-- Hero Section -->
-    <section class="text-center py-20 min-h-screen flex items-center justify-center">
-      <div class="max-w-4xl mx-auto px-6">
-        <div class="floating mb-8">
-          <img src="logo.png" alt="NextGenAI Logo" class="mx-auto mb-6 w-32 h-32 drop-shadow-lg glow rounded-full object-cover">
+    <section class="text-center py-20 min-h-screen flex items-center justify-center relative">
+      <div class="max-w-6xl mx-auto px-6 relative z-10">
+        <div class="floating mb-12">
+          <div class="relative">
+            <img src="logo.png" alt="NextGenAI Logo" class="mx-auto mb-6 w-40 h-40 drop-shadow-lg glow-accent rounded-full object-cover">
+            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 animate-pulse"></div>
+          </div>
         </div>
-        <h1 class="text-6xl md:text-8xl font-extrabold gradient-text tracking-tight mb-6">
+        
+        <h1 class="text-6xl md:text-8xl lg:text-9xl font-black gradient-text tracking-tight mb-8 text-shadow">
           NextGenAI
         </h1>
-        <h2 class="text-2xl md:text-3xl mt-4 text-gray-300 typewriter mb-8">
+        
+        <h2 class="text-xl md:text-3xl lg:text-4xl mt-4 text-gray-300 typewriter mb-12">
           Shaping the Future
         </h2>
-        <div class="fade-in">
-          <button onclick="showPage('about')" class="px-8 py-4 glass-effect rounded-full font-semibold hover-scale glow mr-4 mb-4">
-            Learn More
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center fade-in">
+          <button onclick="showPage('about')" class="px-10 py-4 glass-effect rounded-full font-semibold hover-scale glow text-lg">
+            Discover Our Mission
           </button>
-          <button onclick="showPage('contact')" class="px-8 py-4 bg-white text-black rounded-full font-semibold hover-scale">
-            Join Us
+          <button onclick="showPage('contact')" class="px-10 py-4 btn-primary rounded-full font-semibold text-white text-lg">
+            Join the Revolution
           </button>
         </div>
+        
+        <div class="mt-16 fade-in">
+          <p class="text-gray-400 text-lg mb-8">Empowering the next generation of AI innovators</p>
+          <div class="flex justify-center space-x-12 text-center">
+            <div class="glass-subtle p-4 rounded-lg">
+              <div class="text-2xl font-bold gradient-accent">50+</div>
+              <div class="text-gray-400 text-sm">Members</div>
+            </div>
+            <div class="glass-subtle p-4 rounded-lg">
+              <div class="text-2xl font-bold gradient-accent">25+</div>
+              <div class="text-gray-400 text-sm">Projects</div>
+            </div>
+            <div class="glass-subtle p-4 rounded-lg">
+              <div class="text-2xl font-bold gradient-accent">15+</div>
+              <div class="text-gray-400 text-sm">Workshops</div>
+            </div>
+          </div>
+        </div>
       </div>
+      
+      <!-- Floating Decorative Elements -->
+      <div class="absolute top-20 left-10 w-6 h-6 bg-indigo-500/30 rounded-full floating opacity-60"></div>
+      <div class="absolute top-40 right-20 w-8 h-8 bg-purple-500/30 rounded-full floating opacity-40" style="animation-delay: -1s;"></div>
+      <div class="absolute bottom-20 left-20 w-4 h-4 bg-pink-500/30 rounded-full floating opacity-80" style="animation-delay: -2s;"></div>
+      <div class="absolute bottom-40 right-10 w-5 h-5 bg-blue-500/30 rounded-full floating opacity-50" style="animation-delay: -3s;"></div>
     </section>
   </div>
 
   <!-- About Page -->
   <div id="about" class="page">
     <section class="py-20 min-h-screen">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-16 fade-in">
-          <h2 class="text-4xl md:text-6xl font-semibold gradient-text mb-6">About NextGenAI</h2>
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-20 fade-in">
+          <h2 class="text-5xl md:text-7xl font-black gradient-text mb-6 text-shadow">About NextGenAI</h2>
+          <p class="text-xl text-gray-400 max-w-3xl mx-auto">Pioneering the future of artificial intelligence through education, innovation, and community</p>
         </div>
         
-        <div class="glass-effect p-8 md:p-12 rounded-3xl hover-scale mb-12 fade-in">
-          <h2 class="text-3xl font-semibold gradient-text mb-6 text-center">Our Mission</h2>
-          <p class="text-gray-300 leading-relaxed text-center text-lg">
-            At NextGenAI, our mission is to foster a thriving ecosystem for artificial intelligence within our university. We are committed to advancing AI education, awareness, and innovation by empowering students with the knowledge, tools, and opportunities they need to excel. Through workshops, research projects, competitions, and collaborations, we strive to elevate the understanding and application of AI — ensuring the academic and professional growth of our members and contributing to the broader technological advancement of our university community.
-          </p>
+        <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+          <div class="slide-in-left">
+            <h3 class="text-4xl font-bold gradient-accent mb-8">Our Mission</h3>
+            <div class="space-y-6 text-lg text-gray-300 leading-relaxed">
+              <p>
+                At NextGenAI, our mission is to foster a thriving ecosystem for artificial intelligence within our university. We are committed to advancing AI education, awareness, and innovation by empowering students with the knowledge, tools, and opportunities they need to excel.
+              </p>
+              <p>
+                Through workshops, research projects, competitions, and collaborations, we strive to elevate the understanding and application of AI — ensuring the academic and professional growth of our members and contributing to the broader technological advancement of our university community.
+              </p>
+            </div>
+          </div>
+          
+          <div class="slide-in-right">
+            <div class="glass-effect p-10 rounded-3xl hover-scale pulse-glow">
+              <div class="text-center">
+                <div class="w-24 h-24 mx-auto mb-6 glass-subtle rounded-full flex items-center justify-center glow-accent">
+                  <span class="text-4xl">🎯</span>
+                </div>
+                <h4 class="text-2xl font-bold gradient-text mb-4">Innovation Hub</h4>
+                <p class="text-gray-400">Where cutting-edge AI research meets practical application, fostering breakthrough discoveries</p>
+              </div>
+            </div>
+          </div>
         </div>
         
-        <div class="glass-effect p-8 md:p-12 rounded-3xl hover-scale fade-in">
-          <h2 class="text-3xl font-semibold gradient-text mb-6 text-center">Our Vision</h2>
-          <p class="text-gray-300 leading-relaxed text-center text-lg">
-            To lead the AI revolution on campus by building an inclusive, innovative community that bridges theory with real-world impact and inspires the next generation of AI leaders.
-          </p>
+        <div class="section-divider"></div>
+        
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="slide-in-left order-2 lg:order-1">
+            <div class="glass-effect p-10 rounded-3xl hover-scale pulse-glow">
+              <div class="text-center">
+                <div class="w-24 h-24 mx-auto mb-6 glass-subtle rounded-full flex items-center justify-center glow-accent">
+                  <span class="text-4xl">🚀</span>
+                </div>
+                <h4 class="text-2xl font-bold gradient-text mb-4">Future Vision</h4>
+                <p class="text-gray-400">Leading the AI revolution with inclusive innovation and groundbreaking research initiatives</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="slide-in-right order-1 lg:order-2">
+            <h3 class="text-4xl font-bold gradient-accent mb-8">Our Vision</h3>
+            <div class="text-lg text-gray-300 leading-relaxed">
+              <p>
+                To lead the AI revolution on campus by building an inclusive, innovative community that bridges theory with real-world impact and inspires the next generation of AI leaders. We envision a future where our members become the driving force behind transformative AI technologies that benefit society.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -203,34 +421,112 @@
   <!-- Team Page -->
   <div id="team" class="page">
     <section class="py-20 min-h-screen">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-16 fade-in">
-          <h2 class="text-4xl md:text-6xl font-semibold gradient-text mb-6">Meet the Team</h2>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20 fade-in">
+          <h2 class="text-5xl md:text-7xl font-black gradient-text mb-6 text-shadow">Meet Our Team</h2>
+          <p class="text-xl text-gray-400 max-w-3xl mx-auto">The visionary leaders driving NextGenAI forward</p>
         </div>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          <div class="text-center glass-effect p-8 rounded-3xl hover-scale fade-in">
-            <div class="mb-6">
-              <img src="https://via.placeholder.com/150" alt="President" class="rounded-full mx-auto mb-4 w-32 h-32 object-cover glow">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <!-- President -->
+          <div class="team-card glass-effect p-8 rounded-3xl hover-scale fade-in text-center">
+            <div class="relative mb-8">
+              <img src="https://via.placeholder.com/160" alt="President" class="w-40 h-40 mx-auto rounded-full object-cover glow-accent">
+              <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                <span class="text-sm">👑</span>
+              </div>
             </div>
-            <h3 class="text-2xl font-semibold gradient-text mb-2">[Name]</h3>
-            <p class="text-gray-300 font-medium">President</p>
+            <h3 class="text-2xl font-bold gradient-text mb-2">[Name]</h3>
+            <p class="text-indigo-400 font-semibold mb-3">President</p>
+            <p class="text-gray-400 text-sm leading-relaxed">Leading our society towards AI excellence and strategic growth</p>
           </div>
           
-          <div class="text-center glass-effect p-8 rounded-3xl hover-scale fade-in">
-            <div class="mb-6">
-              <img src="https://via.placeholder.com/150" alt="Vice President" class="rounded-full mx-auto mb-4 w-32 h-32 object-cover glow">
+          <!-- Vice President -->
+          <div class="team-card glass-effect p-8 rounded-3xl hover-scale fade-in text-center">
+            <div class="relative mb-8">
+              <img src="https://via.placeholder.com/160" alt="Vice President" class="w-40 h-40 mx-auto rounded-full object-cover glow-accent">
+              <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
+                <span class="text-sm">⚡</span>
+              </div>
             </div>
-            <h3 class="text-2xl font-semibold gradient-text mb-2">[Name]</h3>
-            <p class="text-gray-300 font-medium">Vice President</p>
+            <h3 class="text-2xl font-bold gradient-text mb-2">[Name]</h3>
+            <p class="text-purple-400 font-semibold mb-3">Vice President</p>
+            <p class="text-gray-400 text-sm leading-relaxed">Driving strategic initiatives and organizational development</p>
           </div>
           
-          <div class="text-center glass-effect p-8 rounded-3xl hover-scale fade-in">
-            <div class="mb-6">
-              <img src="https://via.placeholder.com/150" alt="Technical Lead" class="rounded-full mx-auto mb-4 w-32 h-32 object-cover glow">
+          <!-- Technical Lead -->
+          <div class="team-card glass-effect p-8 rounded-3xl hover-scale fade-in text-center">
+            <div class="relative mb-8">
+              <img src="https://via.placeholder.com/160" alt="Technical Lead" class="w-40 h-40 mx-auto rounded-full object-cover glow-accent">
+              <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full flex items-center justify-center">
+                <span class="text-sm">🔧</span>
+              </div>
             </div>
-            <h3 class="text-2xl font-semibold gradient-text mb-2">[Name]</h3>
-            <p class="text-gray-300 font-medium">Technical Lead</p>
+            <h3 class="text-2xl font-bold gradient-text mb-2">[Name]</h3>
+            <p class="text-blue-400 font-semibold mb-3">Technical Lead</p>
+            <p class="text-gray-400 text-sm leading-relaxed">Architecting innovative AI solutions and technical infrastructure</p>
+          </div>
+          
+          <!-- General Secretary -->
+          <div class="team-card glass-effect p-8 rounded-3xl hover-scale fade-in text-center">
+            <div class="relative mb-8">
+              <img src="https://via.placeholder.com/160" alt="General Secretary" class="w-40 h-40 mx-auto rounded-full object-cover glow-accent">
+              <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center">
+                <span class="text-sm">📋</span>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold gradient-text mb-2">[Name]</h3>
+            <p class="text-green-400 font-semibold mb-3">General Secretary</p>
+            <p class="text-gray-400 text-sm leading-relaxed">Managing operations and coordinating organizational activities</p>
+          </div>
+          
+          <!-- Creative Head -->
+          <div class="team-card glass-effect p-8 rounded-3xl hover-scale fade-in text-center">
+            <div class="relative mb-8">
+              <img src="https://via.placeholder.com/160" alt="Creative Head" class="w-40 h-40 mx-auto rounded-full object-cover glow-accent">
+              <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-pink-400 to-rose-500 rounded-full flex items-center justify-center">
+                <span class="text-sm">🎨</span>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold gradient-text mb-2">[Name]</h3>
+            <p class="text-pink-400 font-semibold mb-3">Creative Head</p>
+            <p class="text-gray-400 text-sm leading-relaxed">Leading creative initiatives and visual design excellence</p>
+          </div>
+          
+          <!-- Social Media Lead -->
+          <div class="team-card glass-effect p-8 rounded-3xl hover-scale fade-in text-center">
+            <div class="relative mb-8">
+              <img src="https://via.placeholder.com/160" alt="Social Media Lead" class="w-40 h-40 mx-auto rounded-full object-cover glow-accent">
+              <div class="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-violet-400 to-purple-500 rounded-full flex items-center justify-center">
+                <span class="text-sm">📱</span>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold gradient-text mb-2">[Name]</h3>
+            <p class="text-violet-400 font-semibold mb-3">Social Media Lead</p>
+            <p class="text-gray-400 text-sm leading-relaxed">Building our digital presence and community engagement</p>
+          </div>
+        </div>
+
+        <!-- Team Stats -->
+        <div class="glass-effect p-8 rounded-3xl fade-in">
+          <h3 class="text-3xl font-bold gradient-accent text-center mb-12">Our Impact</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+              <div class="text-4xl font-black gradient-text mb-2">50+</div>
+              <div class="text-gray-400 font-medium">Active Members</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-black gradient-text mb-2">25+</div>
+              <div class="text-gray-400 font-medium">Projects Completed</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-black gradient-text mb-2">15+</div>
+              <div class="text-gray-400 font-medium">Workshops Conducted</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-black gradient-text mb-2">100%</div>
+              <div class="text-gray-400 font-medium">Innovation Rate</div>
+            </div>
           </div>
         </div>
       </div>
@@ -240,21 +536,51 @@
   <!-- Events Page -->
   <div id="events" class="page">
     <section class="py-20 min-h-screen">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-16 fade-in">
-          <h2 class="text-4xl md:text-6xl font-semibold gradient-text mb-6">Upcoming Events</h2>
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-20 fade-in">
+          <h2 class="text-5xl md:text-7xl font-black gradient-text mb-6 text-shadow">Upcoming Events</h2>
+          <p class="text-xl text-gray-400 max-w-3xl mx-auto">Join us for transformative AI experiences and learning opportunities</p>
         </div>
         
-        <div class="glass-effect p-12 rounded-3xl hover-scale text-center fade-in pulse-glow">
-          <div class="mb-8">
-            <div class="w-24 h-24 mx-auto mb-6 glass-effect rounded-full flex items-center justify-center glow">
-              <span class="text-3xl">🚀</span>
+        <div class="glass-effect p-12 lg:p-16 rounded-3xl hover-scale text-center fade-in pulse-glow">
+          <div class="mb-12">
+            <div class="w-32 h-32 mx-auto mb-8 glass-subtle rounded-full flex items-center justify-center glow-accent floating">
+              <span class="text-5xl">🚀</span>
             </div>
           </div>
-          <h3 class="text-3xl font-bold gradient-text mb-6">Coming Soon</h3>
-          <p class="text-gray-300 text-lg leading-relaxed">
-            Stay tuned for AI workshops, hackathons, and guest speaker sessions! We're preparing exciting events that will revolutionize your understanding of artificial intelligence.
-          </p>
+          
+          <h3 class="text-4xl md:text-5xl font-black gradient-accent mb-8">Something Amazing is Coming</h3>
+          
+          <div class="max-w-3xl mx-auto mb-12">
+            <p class="text-xl text-gray-300 leading-relaxed mb-6">
+              We're preparing groundbreaking AI workshops, intensive hackathons, and exclusive guest speaker sessions that will revolutionize your understanding of artificial intelligence.
+            </p>
+            <p class="text-lg text-gray-400">
+              Get ready for hands-on learning experiences, networking opportunities, and the chance to work on cutting-edge AI projects<span class="loading-dots"></span>
+            </p>
+          </div>
+          
+          <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="glass-subtle p-6 rounded-2xl">
+              <div class="text-3xl mb-3">🤖</div>
+              <h4 class="font-bold text-white mb-2">AI Workshops</h4>
+              <p class="text-gray-400 text-sm">Deep learning, neural networks, and practical AI applications</p>
+            </div>
+            <div class="glass-subtle p-6 rounded-2xl">
+              <div class="text-3xl mb-3">💻</div>
+              <h4 class="font-bold text-white mb-2">Hackathons</h4>
+              <p class="text-gray-400 text-sm">48-hour intensive coding competitions with amazing prizes</p>
+            </div>
+            <div class="glass-subtle p-6 rounded-2xl">
+              <div class="text-3xl mb-3">🎤</div>
+              <h4 class="font-bold text-white mb-2">Guest Speakers</h4>
+              <p class="text-gray-400 text-sm">Industry leaders sharing insights and career guidance</p>
+            </div>
+          </div>
+          
+          <button onclick="showPage('contact')" class="btn-primary px-12 py-4 rounded-full font-bold text-lg text-white">
+            Get Notified First
+          </button>
         </div>
       </div>
     </section>
@@ -263,74 +589,145 @@
   <!-- Contact Page -->
   <div id="contact" class="page">
     <section class="py-20 min-h-screen">
-      <div class="max-w-3xl mx-auto px-4">
-        <div class="text-center mb-16 fade-in">
-          <h2 class="text-4xl md:text-6xl font-semibold gradient-text mb-6">Join Us</h2>
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-20 fade-in">
+          <h2 class="text-5xl md:text-7xl font-black gradient-text mb-6 text-shadow">Join the Revolution</h2>
+          <p class="text-xl text-gray-400 max-w-3xl mx-auto">Become part of the NextGenAI community and shape the future of artificial intelligence</p>
         </div>
         
-        <div class="glass-effect p-12 rounded-3xl hover-scale text-center fade-in">
-          <div class="mb-8">
-            <div class="w-24 h-24 mx-auto mb-6 glass-effect rounded-full flex items-center justify-center glow floating">
-              <span class="text-3xl">🤝</span>
+        <div class="glass-effect p-12 lg:p-16 rounded-3xl hover-scale fade-in">
+          <div class="text-center mb-12">
+            <div class="w-32 h-32 mx-auto mb-8 glass-subtle rounded-full flex items-center justify-center glow-accent floating">
+              <span class="text-5xl">🤝</span>
+            </div>
+            <h3 class="text-3xl md:text-4xl font-black gradient-accent mb-6">Ready to Shape the Future?</h3>
+            <p class="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
+              Fill out our interest form and become part of the NextGenAI movement! Join a community of innovators, researchers, and AI enthusiasts who are passionate about advancing artificial intelligence and creating meaningful impact.
+            </p>
+          </div>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="text-center glass-subtle p-6 rounded-2xl hover-scale">
+              <div class="text-3xl mb-3">🎓</div>
+              <h4 class="font-bold text-white mb-2">Learn</h4>
+              <p class="text-gray-400 text-sm">Access cutting-edge AI education and exclusive resources</p>
+            </div>
+            <div class="text-center glass-subtle p-6 rounded-2xl hover-scale">
+              <div class="text-3xl mb-3">🤝</div>
+              <h4 class="font-bold text-white mb-2">Network</h4>
+              <p class="text-gray-400 text-sm">Connect with like-minded AI enthusiasts and industry experts</p>
+            </div>
+            <div class="text-center glass-subtle p-6 rounded-2xl hover-scale">
+              <div class="text-3xl mb-3">🔬</div>
+              <h4 class="font-bold text-white mb-2">Research</h4>
+              <p class="text-gray-400 text-sm">Participate in groundbreaking AI research projects</p>
+            </div>
+            <div class="text-center glass-subtle p-6 rounded-2xl hover-scale">
+              <div class="text-3xl mb-3">💼</div>
+              <h4 class="font-bold text-white mb-2">Career</h4>
+              <p class="text-gray-400 text-sm">Build skills and connections for the AI-powered future</p>
             </div>
           </div>
-          <h3 class="text-3xl font-bold gradient-text mb-6">Ready to Shape the Future?</h3>
-          <p class="text-gray-300 mb-8 text-lg leading-relaxed">
-            Fill out our interest form and become part of the NextGenAI movement! Join a community of innovators, researchers, and AI enthusiasts who are passionate about advancing artificial intelligence.
-          </p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdwD9BuC4Kd-TtV2l6dpFX0wTJF8L5VcLH-MVWSD5fjx3fnzA/viewform?usp=dialog" 
-             target="_blank" 
-             class="inline-block bg-white text-black px-8 py-4 rounded-full font-semibold hover-scale glow">
-            Join Form
-          </a>
+          
+          <div class="text-center">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdwD9BuC4Kd-TtV2l6dpFX0wTJF8L5VcLH-MVWSD5fjx3fnzA/viewform?usp=dialog" 
+               target="_blank" 
+               class="inline-block btn-primary px-12 py-4 rounded-full font-bold text-lg text-white">
+              Join NextGenAI Society
+            </a>
+            <div class="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4 text-sm text-gray-400">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                No experience required
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                All majors welcome
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                Free membership
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </div>
 
   <!-- Footer -->
-  <footer class="text-center py-8 glass-effect border-t border-gray-800">
+  <footer class="py-12 glass-effect border-t border-gray-800">
     <div class="max-w-7xl mx-auto px-6">
-      <p class="text-gray-400 text-sm">© 2025 NextGenAI Society. All rights reserved.</p>
+      <div class="text-center">
+        <div class="text-3xl font-bold gradient-text mb-6">NextGenAI Society</div>
+        <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+          Shaping the future of artificial intelligence, one innovation at a time. Join us in creating tomorrow's breakthrough technologies.
+        </p>
+        <div class="flex justify-center space-x-8 mb-8">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 hover-scale">LinkedIn</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 hover-scale">Twitter</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 hover-scale">GitHub</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 hover-scale">Discord</a>
+        </div>
+        <div class="section-divider max-w-md mx-auto"></div>
+        <p class="text-gray-500 text-sm">© 2025 NextGenAI Society. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Page Navigation
+    // Page Navigation with Enhanced Animations
     function showPage(pageId) {
       const pages = document.querySelectorAll('.page');
       const navLinks = document.querySelectorAll('.nav-link');
       
+      // Fade out current page
       pages.forEach(page => {
         page.classList.remove('active');
       });
       
+      // Reset nav links
       navLinks.forEach(link => {
         link.classList.remove('text-white');
         link.classList.add('text-gray-300');
+        const underline = link.querySelector('div');
+        if (underline) underline.style.width = '0';
       });
       
-      document.getElementById(pageId).classList.add('active');
-      
-      // Update active nav link
-      const activeLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
-      if (activeLink && activeLink.classList.contains('nav-link')) {
-        activeLink.classList.remove('text-gray-300');
-        activeLink.classList.add('text-white');
-      }
-      
-      // Trigger fade-in animations for new page
+      // Show new page with delay for smooth transition
       setTimeout(() => {
-        const fadeElements = document.querySelectorAll(`#${pageId} .fade-in`);
-        fadeElements.forEach((el, index) => {
-          setTimeout(() => {
-            el.classList.add('visible');
-          }, index * 200);
-        });
-      }, 100);
+        document.getElementById(pageId).classList.add('active');
+        
+        // Update active nav link
+        const activeLink = document.querySelector(`[onclick="showPage('${pageId}')"].nav-link`);
+        if (activeLink) {
+          activeLink.classList.remove('text-gray-300');
+          activeLink.classList.add('text-white');
+          const underline = activeLink.querySelector('div');
+          if (underline) underline.style.width = '100%';
+        }
+        
+        // Trigger animations for new page
+        setTimeout(() => {
+          const animations = [
+            { selector: '.fade-in', delay: 100 },
+            { selector: '.slide-in-left', delay: 200 },
+            { selector: '.slide-in-right', delay: 300 }
+          ];
+          
+          animations.forEach(({ selector, delay }) => {
+            const elements = document.querySelectorAll(`#${pageId} ${selector}`);
+            elements.forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('visible');
+              }, delay + (index * 150));
+            });
+          });
+        }, 100);
+      }, 300);
     }
 
-    // Particle System
+    // Enhanced Particle System
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -343,24 +740,54 @@
     window.addEventListener('resize', resizeCanvas);
 
     const particles = [];
-    const particleCount = 60;
+    const particleCount = 80;
+    const mouse = { x: null, y: null, radius: 150 };
 
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 1;
-        this.vy = (Math.random() - 0.5) * 1;
-        this.size = Math.random() * 2 + 1;
-        this.opacity = Math.random() * 0.3 + 0.1;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.8;
+        this.size = Math.random() * 2 + 0.5;
+        this.opacity = Math.random() * 0.4 + 0.1;
+        this.originalOpacity = this.opacity;
       }
 
       update() {
+        // Mouse interaction
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < mouse.radius) {
+            const force = (mouse.radius - distance) / mouse.radius;
+            const angle = Math.atan2(dy, dx);
+            this.vx += Math.cos(angle) * force * 0.01;
+            this.vy += Math.sin(angle) * force * 0.01;
+            this.opacity = Math.min(this.originalOpacity * 2, 0.8);
+          } else {
+            this.opacity = this.originalOpacity;
+          }
+        }
+
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        // Boundary collision with bounce
+        if (this.x < 0 || this.x > canvas.width) {
+          this.vx *= -0.9;
+          this.x = Math.max(0, Math.min(canvas.width, this.x));
+        }
+        if (this.y < 0 || this.y > canvas.height) {
+          this.vy *= -0.9;
+          this.y = Math.max(0, Math.min(canvas.height, this.y));
+        }
+
+        // Add some friction
+        this.vx *= 0.99;
+        this.vy *= 0.99;
       }
 
       draw() {
@@ -368,7 +795,13 @@
         ctx.globalAlpha = this.opacity;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff';
+        
+        // Create gradient for particles
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+        gradient.addColorStop(0, '#ffffff');
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0.1)');
+        
+        ctx.fillStyle = gradient;
         ctx.fill();
         ctx.restore();
       }
@@ -379,6 +812,17 @@
       particles.push(new Particle());
     }
 
+    // Mouse tracking
+    canvas.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -387,18 +831,26 @@
         particle.draw();
       });
 
-      // Draw connections
+      // Enhanced connection lines
       particles.forEach((particle, i) => {
         particles.slice(i + 1).forEach(otherParticle => {
           const dx = particle.x - otherParticle.x;
           const dy = particle.y - otherParticle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 120) {
+          if (distance < 150) {
             ctx.save();
-            ctx.globalAlpha = (120 - distance) / 120 * 0.1;
-            ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = 0.5;
+            const opacity = (150 - distance) / 150 * 0.15;
+            ctx.globalAlpha = opacity;
+            
+            // Create gradient line
+            const gradient = ctx.createLinearGradient(particle.x, particle.y, otherParticle.x, otherParticle.y);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+            gradient.addColorStop(0.5, 'rgba(124, 58, 237, 0.6)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.8)');
+            
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
@@ -413,7 +865,7 @@
 
     animateParticles();
 
-    // Mobile Menu
+    // Enhanced Mobile Menu
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     let mobileMenuOpen = false;
 
@@ -421,48 +873,130 @@
       if (!mobileMenuOpen) {
         const mobileMenu = document.createElement('div');
         mobileMenu.id = 'mobile-menu';
-        mobileMenu.className = 'md:hidden glass-effect absolute top-full left-0 right-0 p-6 space-y-4 rounded-b-2xl';
+        mobileMenu.className = 'md:hidden glass-effect absolute top-full left-0 right-0 p-8 space-y-6 rounded-b-3xl border-t-0';
         mobileMenu.innerHTML = `
-          <a href="#" onclick="showPage('home')" class="block text-gray-300 hover:text-white transition-colors">Home</a>
-          <a href="#" onclick="showPage('about')" class="block text-gray-300 hover:text-white transition-colors">About</a>
-          <a href="#" onclick="showPage('team')" class="block text-gray-300 hover:text-white transition-colors">Team</a>
-          <a href="#" onclick="showPage('events')" class="block text-gray-300 hover:text-white transition-colors">Events</a>
-          <a href="#" onclick="showPage('contact')" class="block text-gray-300 hover:text-white transition-colors">Join</a>
+          <a href="#" onclick="showPage('home')" class="block text-gray-300 hover:text-white transition-all duration-300 text-lg font-medium">Home</a>
+          <a href="#" onclick="showPage('about')" class="block text-gray-300 hover:text-white transition-all duration-300 text-lg font-medium">About</a>
+          <a href="#" onclick="showPage('team')" class="block text-gray-300 hover:text-white transition-all duration-300 text-lg font-medium">Team</a>
+          <a href="#" onclick="showPage('events')" class="block text-gray-300 hover:text-white transition-all duration-300 text-lg font-medium">Events</a>
+          <a href="#" onclick="showPage('contact')" class="block text-gray-300 hover:text-white transition-all duration-300 text-lg font-medium">Join</a>
         `;
+        
+        // Animate menu appearance
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.transform = 'translateY(-20px)';
         document.querySelector('nav > div').appendChild(mobileMenu);
+        
+        requestAnimationFrame(() => {
+          mobileMenu.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+          mobileMenu.style.opacity = '1';
+          mobileMenu.style.transform = 'translateY(0)';
+        });
+        
         mobileMenuOpen = true;
       } else {
-        document.getElementById('mobile-menu')?.remove();
+        const menu = document.getElementById('mobile-menu');
+        if (menu) {
+          menu.style.opacity = '0';
+          menu.style.transform = 'translateY(-20px)';
+          setTimeout(() => menu.remove(), 300);
+        }
         mobileMenuOpen = false;
       }
     });
 
-    // Initialize animations on page load
+    // Initialize page with animations
     window.addEventListener('load', () => {
-      // Initialize home page fade-ins
-      const homeElements = document.querySelectorAll('#home .fade-in');
-      homeElements.forEach((el, index) => {
-        setTimeout(() => {
-          el.classList.add('visible');
-        }, (index + 1) * 500);
-      });
+      // Initialize home page animations
+      setTimeout(() => {
+        const homeElements = document.querySelectorAll('#home .fade-in');
+        homeElements.forEach((el, index) => {
+          setTimeout(() => {
+            el.classList.add('visible');
+          }, (index + 1) * 400);
+        });
+      }, 500);
       
       // Set initial active nav link
-      document.querySelector('[onclick="showPage(\'home\')"].nav-link').classList.remove('text-gray-300');
-      document.querySelector('[onclick="showPage(\'home\')"].nav-link').classList.add('text-white');
-    });
-
-    // Enhanced navbar behavior
-    window.addEventListener('scroll', () => {
-      const navbar = document.getElementById('navbar');
-      if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-        navbar.style.backdropFilter = 'blur(25px)';
-      } else {
-        navbar.style.background = 'rgba(20, 20, 20, 0.8)';
-        navbar.style.backdropFilter = 'blur(20px)';
+      const homeLink = document.querySelector('[onclick="showPage(\'home\')"].nav-link');
+      if (homeLink) {
+        homeLink.classList.remove('text-gray-300');
+        homeLink.classList.add('text-white');
+        const underline = homeLink.querySelector('div');
+        if (underline) underline.style.width = '100%';
       }
     });
+
+    // Enhanced navbar scroll behavior
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 100) {
+        navbar.style.background = 'rgba(5, 5, 5, 0.95)';
+        navbar.style.backdropFilter = 'blur(30px)';
+        navbar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+      } else {
+        navbar.style.background = 'rgba(20, 20, 20, 0.85)';
+        navbar.style.backdropFilter = 'blur(25px)';
+        navbar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+      }
+      
+      // Hide/show navbar on scroll
+      if (currentScrollY > lastScrollY && currentScrollY > 200) {
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        navbar.style.transform = 'translateY(0)';
+      }
+      
+      lastScrollY = currentScrollY;
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animation elements
+    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Add loading screen
+    const loadingScreen = document.createElement('div');
+    loadingScreen.innerHTML = `
+      <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%); z-index: 10000; display: flex; align-items: center; justify-content: center; transition: opacity 0.8s ease;">
+        <div style="text-align: center;">
+          <div style="width: 100px; height: 100px; border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 50%; border-top-color: #ffffff; animation: spin 1.5s linear infinite; margin: 0 auto 30px;"></div>
+          <div style="font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 50%, #cccccc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px;">NextGenAI</div>
+          <div style="font-size: 14px; color: #666; font-weight: 500;">Loading the future...</div>
+        </div>
+      </div>
+      <style>
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+    `;
+    
+    document.body.appendChild(loadingScreen);
+    
+    setTimeout(() => {
+      loadingScreen.style.opacity = '0';
+      setTimeout(() => {
+        loadingScreen.remove();
+      }, 800);
+    }, 2500);
   </script>
 </body>
 </html>
